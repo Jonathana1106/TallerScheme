@@ -39,14 +39,25 @@
 
 ;;######################################
 
-(define (invertir lista)
-  (cond ((null? lista) '())
-        (else (append (invertir (cdr lista))(list (car lista))))))
-
 ;;############ Quicksort ###############
 
-;;(define (quickSort lista)
-  
+(define (quickSort lista)
+  (cond ((null? lista) '())
+        (else (let* ((punto (car lista))
+                     (menores-mayores (pivot lista))
+                     (menores (car menores-mayores))
+                     (mayores (cadr menores-mayores)))
+                (append (quickSort menores)
+                        (list punto)
+                        (quickSort mayores))))))
 
+(define (pivot lista)
+  (cond ((null? lista) #f)
+         (else (pivotAux (car lista) (cdr lista) '() '()))))
+
+(define (pivotAux punto lista menores mayores)
+  (cond ((null? lista) (list menores mayores))
+        ((<= (car lista) punto) (pivotAux punto (cdr lista) (cons (car lista) menores) mayores))
+        (else (pivotAux punto (cdr lista) menores (cons (car lista) mayores)))))
+                               
 ;;######################################
-
