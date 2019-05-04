@@ -1,0 +1,106 @@
+;; The first three lines of this file were inserted by DrRacket. They record metadata
+;; about the language level of this file in a form that our tools can easily process.
+#reader(lib "htdp-advanced-reader.ss" "lang")((modname TallerScheme) (read-case-sensitive #t) (teachpacks ()) (htdp-settings #(#t constructor repeating-decimal #t #t none #f () #f)))
+;; Funciones Lenguajes
+;; Instituto Tecnológico de Costa Rica
+;; Prof: Marco Rivera
+;; Alumno: Jonathan Guzmán Araya
+
+;;############ Factorial ###############
+
+;; Función que determina el factorial de un número entero.
+
+(define (factorial n) ;; Nombre de la función y número que se desea analizar.
+  (cond ((equal? n 0) 1) ;; Condición básica de parada.
+        ((equal? n 1) 1) ;; Condición básica.
+        (else (* n (factorial(- n 1)))))) ;; Llamada recursiva de la función para
+                                          ;; determinar el factorial del número predecesor al actual.
+
+;;######################################
+
+;;############ Fibonacci ###############
+
+(define (fibonacci n) ;; Nombre de la función y número que se desea analizar.
+  (cond ((equal? n 0) 0) ;; Condición básica de parada.
+        ((equal? n 1) 1) ;; Condición básica.
+        (else (+ (fibonacci(- n 1)) (fibonacci(- n 2)))))) ;; Llamada recursiva de la función para
+                                                           ;; determinar el fibonacci del número predecesor
+                                                           ;; al actual y el predecesor del predecesor.
+
+;;######################################
+
+;;############ Miembro #################
+
+(define (miembro num lista) ;; Nombre de la función y argumentos que recibe.
+  (cond ((null? lista) (display "No se encuentra en lista \n")) ;; Condición de validación de la lista.
+        ((equal? num (car lista)) #t) ;; Valida si el número se encuentra en la primera posición de la lista.
+        (else (miembro num (cdr lista))))) ;; Si no se cumple el paso anterior elimina el primer elemento de
+                                           ;; la lista y se llama recursivamente con el resto de la lista.
+;; (miembro 5 '(1 2 3 4 5 6 7 8 9 0))
+
+;;######################################
+
+;;############ Eliminar ################
+
+(define (eliminar num lista) ;; Nombre de la función y argumentos que recibe.
+  (cond ((null? lista) '()) ;; Validación de que la lista no sea nula.
+        ((equal? num (car lista)) (eliminar num (cdr lista))) ;; Compara si el elemento de la lista es igual
+                                                              ;; al primero, y en caso de serlo lo elimina y
+                                                              ;; llama recursivamente para ver si hay más elementos
+                                                              ;; iguales en el resto de la lista.
+        (else (cons (car lista) (eliminar num (cdr lista)))))) ;; Si no se cumple lo anterior saca el primer elemento
+                                                               ;; de la lista y empieza a construir una nueva, además
+                                                               ;; llama recursivamente a la función para ver si encue_
+                                                               ;; tra el elemento a eliminar en el resto de la lista.;;;;
+;; (eliminar 5 '(1 2 3 4 5 6 7 8 9 0))
+
+;;######################################
+
+;;############ Quicksort ###############
+
+(define (quickSort lista) ;; Nombre de la función y argumento que recibe.
+  (cond ((null? lista) '()) ;; Validación de que la lista a ordenar no sea nula.
+        (else (append (quickSort(menores lista)) (list(car lista)) (quickSort(mayores lista)))))) ;; Si no es nula, realiza un un append de
+                                                                                                  ;; ordenar los menores al pivot, el pivot
+                                                                                                  ;; y ordenar los mayores al pivot.
+
+;; (quickSort '(5 8 1 3 7 4 6 2))
+
+;;######################################
+
+;;############ Menores #################
+
+(define (menores lista) ;; Nombre de la función y argumento que recibe.
+  (cond ((null? lista) '()) ;; Validación de que la lista no sea nula.
+        (else (menoresAux (car lista) (cdr lista) '())))) ;;
+
+(define (menoresAux pivot lista resultado) ;; Nombre de la función auxiliar y argumento que recibe.
+  (cond ((null? lista) resultado) ;; Condición de parada.
+        ((> pivot (car lista)) (menoresAux pivot (cdr lista) (append resultado (list (car lista))))) ;; Compara si el pivot es mayor que el
+                                                                                                     ;; primer elemento de la lista, de ser
+                                                                                                     ;; así lo agrega a la lista solución.
+        (else (menoresAux pivot (cdr lista) resultado)))) ;; Si no es así, elimina el primer elemento
+                                                          ;; de la lista y se llama recursivamente con
+                                                          ;; el resto de la lista para continuar el análisis.
+
+;; (menores '(5 8 1 3 7 4 6 2))
+
+;;############ Mayores ################
+
+(define (mayores lista) ;; Nombre de la función y argumento que recibe.
+  (cond ((null? lista) '()) ;; Validación de que la lista no sea nula.
+        (else (mayoresAux (car lista) (cdr lista) '())))) ;; Llama a la función auxiliar y le pasa los parámetros
+                                                          ;; que recibe la misma
+
+(define (mayoresAux pivot lista resultado) ;; Nombre de la función auxiliar y argumento que recibe.
+  (cond ((null? lista) resultado) ;; Condición de parada.
+        ((< pivot (car lista)) (mayoresAux pivot (cdr lista) (append resultado(list (car lista))))) ;; Compara si el pivot es menor que el
+                                                                                                    ;; primer elemento de la lista, de ser
+                                                                                                    ;; así lo agrega a la lista solución.
+        (else (mayoresAux pivot (cdr lista) resultado)))) ;; Si no es así, elimina el primer elemento
+                                                          ;; de la lista y se llama recursivamente con
+                                                          ;; el resto de la lista para continuar el análisis.
+
+;; (mayores '(5 8 1 3 7 4 6 2))
+
+;;######################################
