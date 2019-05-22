@@ -63,7 +63,7 @@
         (else (append (quickSort(menores lista)) (list(car lista)) (quickSort(mayores lista)))))) ;; Si no es nula, realiza un un append de
                                                                                                   ;; ordenar los menores al pivot, el pivot
                                                                                                   ;; y ordenar los mayores al pivot.
- 
+
 ;; (quickSort '(5 8 1 3 7 4 6 2))
 
 ;;######################################
@@ -115,64 +115,21 @@
 
 ;;############ Arbol Binario ################
 
-(define (tree centro izq der) ;; Función que contruye un árbol y recibe como parámetros la raíz y sus hijos izquierdo y derecho.
-  (cond ((and (null? izq) (null? der)) centro) ;; Si el hijo izquierdo es nulo y su hijo derecho también entonces solo tiene raiz.
-        (else (list centro izq der)))) ;; Si no, aagrega la raíz y sus hijos.
+;(define (eliminarArbol valor arbol)
+;  (cond ((equal? valor (valor arbol))
+;         (cond ((and (null? (izq arbol)) (null? (der arbol))) '())
+;               ((null? (izq arbol)) (der arbol))
+;               ((null? (der arbol)) (izq arbol))
+;               (else (lista (mayor (izq arbol)) (eliminarArbol (mayor (izq arbol))) (der arbol))))))) ((< valor (valor arbol)) (cons))
 
-;; Detecta si un árbol no es representado por una lista.
-(define (atom? x)
-  (not (list? x)))
+;(define (valor nodo)(car nodo))
 
-(define (raiz arbol) ;; Nombre de la función y argumento que recibe.
-  (cond ((atom? arbol) arbol) ;; Si es árbol es atómico (compuesto de un solo elemento), lo retorna.
-        (else (car arbol)))) ;; Si no, aplica un car del árbol que es su raíz.
+;(define (izq nodo)(cadr nodo))
 
-(define (hijoIzq subArbol) ;; Función que encuentra el hijo izquierdo de un árbol o sub árbol.
-  (cond ((atom? subArbol) '()) ;; Si el subarbol es el mismo, retorna vacío, indicando que no tiene hijos.
-        (else (cadr subArbol)))) ;; Si no, del resto de la lista, toma su primer elemento que será el hijo izquierdo.
+;(define (der nodo)(caadr nodo))
 
-(define (hijoDer subArbol) ;; Función que encuentra el hijo derecho de un árbol o sub árbol.
-  (cond ((atom? subArbol) '()) ;; Si el subarbol es el mismo, retorna vacío, indicando que no tiene hijos.
-        (else (caddr subArbol)))) ;; Si no, del resto de la lista, toma su último elemento que será el hijo derecho.
+;(define (mayor nodo)
+;  (cond ((null? (der nodo)) (valor nodo))
+;        (else (mayor nodo))))
 
-
-
-(define (mayor arbol) ;; Función que encuentra el elmento mayor de un árbol.
-  (cond  ((null? arbol) #f) ;; Si el árbol es nulo, retorna falso.
-         ((null? (hijoDer arbol)) (raiz arbol)) ;; Si no tiene hijo dereho, el mayor será la raíz.
-         (else (mayor (hijoDer arbol))))) ;; Si no, busca el mayor en su hijo derecho.
-
-(define (eliminarArbol elemento arbol) ;; Función que elimina un elemento de un árbol.
-  (cond ((null? arbol) arbol) ;; Si el árbol es vacío, se retorna a sí mismo.
-        ((< elemento (raiz arbol)) (tree (raiz arbol) (eliminarArbol elemento (hijoIzq arbol)) (hijoDer arbol))) ;; Si el elemento a eliminar es menor que la raíz,
-                                                                                                                 ;; contruye un árbol conservando la raíz eliminando
-                                                                                                                 ;; el elemento de hijo izquierdo y conservando el
-                                                                                                                 ;; hijo derecho.
-        ((> elemento (raiz arbol)) (tree (raiz arbol) (hijoIzq arbol) (eliminarArbol elemento (hijoDer arbol)))) ;; Si el elemento a eliminar es mayor que la raíz,
-                                                                                                                 ;; contruye un árbol conservando la raíz y a su hijo
-                                                                                                                 ;; izquierdo y eliminando el elemento del hijo derecho.
-        ((and (null? (hijoIzq arbol)) (null? (hijoDer arbol))) '()) ;; Comprueba si tiene hijos derecho e izquierdo.
-        ((null? (hijoIzq arbol)) (hijoDer arbol)) ;; Solo tiene hijo derecho.
-        ((null? (hijoDer arbol)) (hijoIzq arbol)) ;; Solo tiene hijo izquierdo.
-        (else (tree (mayor (hijoIzq arbol)) (eliminarArbol (mayor (hijoIzq arbol)) (hijoIzq arbol)) (hijoDer arbol)) ))) ;; Si el elemento a eliminar es la raíz, construye
-                                                                                                                         ;; un árbol con el mayor del hijo izquierdo como
-                                                                                                                         ;; nueva raíz, elimina ese elemento del hijo izquierdo
-                                                                                                                         ;; para devolver un nuevo hijo izquierdo y por último
-                                                                                                                         ;; agrega el hijo derecho.
-         
- 
-;;(eliminarArbol 10 '(10 (5 3 8) (15 14 18)))
-
-;;######################################
-
-;;############ Anchura primero ################
-
-;; Inorden (hijoIzq, raíz, hijoDer)
-(define (anchuraIn arbol) ;; Función que realiza un recorrido en anchura de un árbol por inorden.
-  (cond ((null? arbol) '()) ;; Si el árbol es nulo, se retorna a sí mismo.
-        (else (append (append (anchuraIn(hijoIzq arbol)) (list (raiz arbol))) (anchuraIn(hijoDer arbol)))))) ;; Si no, contruye una lista realizando un recorrido inorden
-                                                                                                             ;; en el hijo izquierdo, agrega la raíz y realiza un recorrido
-                                                                                                             ;; inorden del hijo derecho.
-;;(anchuraIn '(10 (5 3 8) (15 14 18)))
- 
 ;;######################################
