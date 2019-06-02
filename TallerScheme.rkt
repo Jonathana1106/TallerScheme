@@ -36,7 +36,6 @@
         ((equal? num (car lista)) #t) ;; Valida si el número se encuentra en la primera posición de la lista.
         (else (miembro num (cdr lista))))) ;; Si no se cumple el paso anterior elimina el primer elemento de
                                            ;; la lista y se llama recursivamente con el resto de la lista.
-;; (miembro 5 '(1 2 3 4 5 6 7 8 9 0))
 
 ;;######################################
 
@@ -50,9 +49,8 @@
                                                               ;; iguales en el resto de la lista.
         (else (cons (car lista) (eliminar num (cdr lista)))))) ;; Si no se cumple lo anterior saca el primer elemento
                                                                ;; de la lista y empieza a construir una nueva, además
-                                                               ;; llama recursivamente a la función para ver si encue_
-                                                               ;; tra el elemento a eliminar en el resto de la lista.;;;;
-;; (eliminar 5 '(1 2 3 4 5 6 7 8 9 0))
+                                                               ;; llama recursivamente a la función para ver si encuen
+                                                               ;; tra el elemento a eliminar en el resto de la lista.
 
 ;;######################################
 
@@ -63,8 +61,6 @@
         (else (append (quickSort(menores lista)) (list(car lista)) (quickSort(mayores lista)))))) ;; Si no es nula, realiza un un append de
                                                                                                   ;; ordenar los menores al pivot, el pivot
                                                                                                   ;; y ordenar los mayores al pivot.
- 
-;; (quickSort '(5 8 1 3 7 4 6 2))
 
 ;;######################################
 
@@ -159,9 +155,6 @@
                                                                                                                          ;; nueva raíz, elimina ese elemento del hijo izquierdo
                                                                                                                          ;; para devolver un nuevo hijo izquierdo y por último
                                                                                                                          ;; agrega el hijo derecho.
-         
- 
-;;(eliminarArbol 10 '(10 (5 3 8) (15 14 18)))
 
 ;;######################################
 
@@ -173,6 +166,32 @@
         (else (append (append (anchuraIn(hijoIzq arbol)) (list (raiz arbol))) (anchuraIn(hijoDer arbol)))))) ;; Si no, contruye una lista realizando un recorrido inorden
                                                                                                              ;; en el hijo izquierdo, agrega la raíz y realiza un recorrido
                                                                                                              ;; inorden del hijo derecho.
-;;(anchuraIn '(10 (5 3 8) (15 14 18)))
- 
 ;;######################################
+
+;;########################################## Casos de Prueba ##########################################################################
+
+(display "Factorialde 6 es: ");
+(factorial 6);
+
+(display "Fibonacci de 6 es: ");
+(fibonacci 6);
+
+(display "Miembro 5 de (1 2 3 4 5 6 7 8 9 0) es: ");
+(miembro 5 '(1 2 3 4 5 6 7 8 9 0))
+
+(display "Eliminar 5 de (1 2 3 4 5 6 7 8 9 0) entonces el resultado es: ");
+(eliminar 5 '(1 2 3 4 5 6 7 8 9 0))
+
+(display "Quicksort de (5 8 1 3 7 4 6 2) entonces el resultado es: "); 
+(quickSort '(5 8 1 3 7 4 6 2))
+
+(display "Automovil (Hatchback Suzuki Forza1 Rojo si Manual) (Tipo Marca Modelo Color AC Transmisión) entonces el resultado es: ");
+(automovil '(Hatchback Suzuki Forza1 Rojo si Manual) '(Tipo Marca Modelo Color AC Transmisión))
+
+(display "EliminarArbol 10 de (10 (5 3 8) (15 14 18)) entonces el resultado es: ");
+(eliminarArbol 10 '(10 (5 3 8) (15 14 18)))
+
+(display "Inorden arbol de (10 (5 3 8) (15 14 18)) entonces el resultado es: ");
+(anchuraIn '(10 (5 3 8) (15 14 18)))
+
+;;#######################################################################################################################################
